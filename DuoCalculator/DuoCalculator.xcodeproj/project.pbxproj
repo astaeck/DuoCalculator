@@ -17,6 +17,7 @@
 		1EC37AC82ACBD2360045C732 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1EC37AC72ACBD2360045C732 /* Preview Assets.xcassets */; };
 		1EC37AD22ACBD2360045C732 /* DuoCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC37AD12ACBD2360045C732 /* DuoCalculatorTests.swift */; };
 		1EC37AEB2ACC26FE0045C732 /* CalculatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC37AEA2ACC26FE0045C732 /* CalculatorView.swift */; };
+		1EEE2F382AD7D0220076C444 /* SoulverCore in Frameworks */ = {isa = PBXBuildFile; productRef = 1EEE2F372AD7D0220076C444 /* SoulverCore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1EEE2F382AD7D0220076C444 /* SoulverCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -144,6 +146,9 @@
 			dependencies = (
 			);
 			name = DuoCalculator;
+			packageProductDependencies = (
+				1EEE2F372AD7D0220076C444 /* SoulverCore */,
+			);
 			productName = DuoCalculator;
 			productReference = 1EC37ABD2ACBD2350045C732 /* DuoCalculator.app */;
 			productType = "com.apple.product-type.application";
@@ -216,6 +221,9 @@
 				Base,
 			);
 			mainGroup = 1EC37AB42ACBD2350045C732;
+			packageReferences = (
+				1EEE2F362AD7D0220076C444 /* XCRemoteSwiftPackageReference "SoulverCore" */,
+			);
 			productRefGroup = 1EC37ABE2ACBD2350045C732 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -587,6 +595,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1EEE2F362AD7D0220076C444 /* XCRemoteSwiftPackageReference "SoulverCore" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/soulverteam/SoulverCore";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.4.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1EEE2F372AD7D0220076C444 /* SoulverCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1EEE2F362AD7D0220076C444 /* XCRemoteSwiftPackageReference "SoulverCore" */;
+			productName = SoulverCore;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 1EC37AB52ACBD2350045C732 /* Project object */;
 }
