@@ -48,12 +48,7 @@ enum CalcButton: Int {
     }
     
     var fontColor: Color {
-        switch self {
-        case .clear, .negative, .percent:
-            return Color.black
-        default:
-            return Color.white
-        }
+        return Color.white
     }
 }
 
