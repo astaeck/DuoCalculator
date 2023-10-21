@@ -1,6 +1,6 @@
 import SwiftUI
 
-enum CalcButton: Int {
+enum CalcButton {
     case zero, one, two, three, four, five, six, seven, eight, nine
     case equal, plus, minus, multiply, division
     case clear, negative, percent, decimal

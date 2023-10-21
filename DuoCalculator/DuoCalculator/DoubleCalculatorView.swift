@@ -41,6 +41,8 @@ struct DoubleCalculatorView: View {
                 }
                 Spacer()
                 Button {
+                    self.viewModelRight.delete()
+                    self.viewModelLeft.delete()
                 } label: {
                     Text("DEL")
                         .font(.system(size: Constants.buttonFontSize))
