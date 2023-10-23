@@ -7,7 +7,7 @@ struct DoubleCalculatorView: View {
     private struct Constants {
         static let buttonDimension = 55.0
         static let cornerRadius = 15.0
-        static let spacerHeight = 80.0
+        static let spacerHeight = 100.0
         static let buttonFontSize = 30.0
     }
 

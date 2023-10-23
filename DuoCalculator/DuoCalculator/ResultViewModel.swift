@@ -6,7 +6,6 @@ final class ResultViewModel: ObservableObject {
     private var currentOperation: Operation = .none
     private var runningNumber: CGFloat = 0.0
     private var currentValue: CGFloat = 0.0
-    private let digitCount = 8
 
     func moveOver(result: String) {
         self.result = result
@@ -26,6 +25,7 @@ final class ResultViewModel: ObservableObject {
             runningNumber = formattedFloat(result)
             currentOperation = .none
         case .plus, .minus, .multiply, .division:
+            computations += result
             if currentOperation != .none {
                 calculateResult()
             }
@@ -39,7 +39,7 @@ final class ResultViewModel: ObservableObject {
             } else if button == .division {
                 currentOperation = .divide
             }
-            
+            computations += button.title
         case .clear:
             clearAll()
         case .decimal:
@@ -53,7 +53,6 @@ final class ResultViewModel: ObservableObject {
             if result == "0" || runningNumber == formattedFloat(result) {
                 result = number
             } else {
-                guard result.count <= digitCount else { return }
                 result = "\(result)\(number)"
             }
             currentValue = formattedFloat(result)

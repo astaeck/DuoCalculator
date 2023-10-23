@@ -14,6 +14,9 @@ struct CalculatorView: View {
     ]
     
     private struct Constants {
+        static let maxWidthText = 290.0
+        static let minHeightTitle = 55.0
+        static let minHeightSubtitle = 35.0
         static let maxWidth = 80.0
         static let maxWidthZero = 168.0
         static let minWidth = 60.0
@@ -31,19 +34,23 @@ struct CalculatorView: View {
             Text("\(viewModel.result)")
                 .font(.system(size: Constants.titleFontSize))
                 .frame(
-                    maxWidth: .infinity,
+                    maxWidth: Constants.maxWidthText,
+                    minHeight: Constants.minHeightTitle,
                     alignment: .trailing
                 )
                 .foregroundColor(.white)
-                .minimumScaleFactor(0.8)
+                .minimumScaleFactor(0.5)
+                .lineLimit(1)
             Text("\(viewModel.computations)")
                 .font(.system(size: Constants.subtitleFontSize))
                 .frame(
-                    maxWidth: .infinity,
-                    alignment: .trailing
+                    maxWidth: Constants.maxWidthText,
+                    minHeight: Constants.minHeightSubtitle,
+                    alignment: .leading
                 )
                 .foregroundColor(.white)
-            
+                .minimumScaleFactor(0.5)
+                .lineLimit(5)
             ForEach(buttons, id: \.self) { row in
                 HStack(spacing: 5) {
                     ForEach(row, id: \.self) { item in
