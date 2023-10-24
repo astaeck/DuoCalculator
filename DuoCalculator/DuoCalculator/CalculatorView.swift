@@ -2,8 +2,14 @@
 
 import SwiftUI
 
+enum Orientation {
+    case landscape
+    case portrait
+}
+
 struct CalculatorView: View {
     @ObservedObject var viewModel: ResultViewModel
+    let orientation: Orientation
     
     private let buttons: [[CalcButton]] = [
         [.clear, .negative, .percent, .division],
@@ -15,16 +21,20 @@ struct CalculatorView: View {
     
     private struct Constants {
         static let maxWidthText = 290.0
-        static let minHeightTitle = 55.0
-        static let minHeightSubtitle = 35.0
+        static let minWidthText = 320.0
+        static let minHeightTitle = 40.0
+        static let maxHeightTitle = 50.0
+        static let minHeightSubtitle = 40.0
+
         static let maxWidth = 80.0
         static let maxWidthZero = 168.0
-        static let minWidth = 60.0
-        static let minWidthZero = 125.0
+        static let minWidth = 65.0
+        static let minWidthZero = 135.0
         static let maxHeight = 80.0
         static let minHeight = 50.0
+    
         static let titleFontSize = 50.0
-        static let subtitleFontSize = 30.0
+        static let subtitleFontSize = 25.0
         static let buttonFontSize = 35.0
         static let cornerRadius = 15.0
     }
@@ -34,8 +44,9 @@ struct CalculatorView: View {
             Text("\(viewModel.result)")
                 .font(.system(size: Constants.titleFontSize))
                 .frame(
-                    maxWidth: Constants.maxWidthText,
-                    minHeight: Constants.minHeightTitle,
+                    minWidth: textWidth(),
+                    maxWidth: textWidth(),
+                    minHeight: titleHeight(),
                     alignment: .trailing
                 )
                 .foregroundColor(.white)
@@ -44,7 +55,8 @@ struct CalculatorView: View {
             Text("\(viewModel.computations)")
                 .font(.system(size: Constants.subtitleFontSize))
                 .frame(
-                    maxWidth: Constants.maxWidthText,
+                    minWidth: textWidth(),
+                    maxWidth: textWidth(),
                     minHeight: Constants.minHeightSubtitle,
                     alignment: .leading
                 )
@@ -60,14 +72,8 @@ struct CalculatorView: View {
                             Text(item.title)
                                 .font(.system(size: Constants.buttonFontSize))
                                 .frame(
-                                    minWidth: item == .zero 
-                                    ? Constants.minWidthZero
-                                    : Constants.minWidth,
-                                    maxWidth: item == .zero
-                                    ? Constants.maxWidthZero
-                                    : Constants.maxWidth,
-                                    minHeight: Constants.minHeight,
-                                    maxHeight: Constants.maxHeight
+                                    width: buttonWidth(item: item),
+                                    height: buttonHeight()
                                 )
                                 .background(item.buttonColor)
                                 .foregroundColor(item.fontColor)
@@ -77,5 +83,37 @@ struct CalculatorView: View {
                 }
             }
         }
+    }
+    
+    private func buttonWidth(item: CalcButton) -> CGFloat {
+        guard orientation == .landscape else {
+            return item == .zero
+            ? Constants.maxWidthZero
+            : Constants.maxWidth
+        }
+        return item == .zero
+        ? Constants.minWidthZero
+        : Constants.minWidth
+    }
+    
+    private func buttonHeight() -> CGFloat {
+        guard orientation == .landscape else {
+            return Constants.maxHeight
+        }
+        return Constants.minHeight
+    }
+    
+    private func textWidth() -> CGFloat {
+        guard orientation == .landscape else {
+            return Constants.minWidthText
+        }
+        return Constants.maxWidthText
+    }
+    
+    private func titleHeight() -> CGFloat {
+        guard orientation == .landscape else {
+            return Constants.maxHeightTitle
+        }
+        return Constants.minHeightTitle
     }
 }

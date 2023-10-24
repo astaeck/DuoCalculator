@@ -7,16 +7,17 @@ struct DoubleCalculatorView: View {
     private struct Constants {
         static let buttonDimension = 55.0
         static let cornerRadius = 15.0
-        static let spacerHeight = 100.0
         static let buttonFontSize = 30.0
     }
 
     var body: some View {
         HStack {
-            CalculatorView(viewModel: viewModelLeft)
+            CalculatorView(
+                viewModel: viewModelLeft,
+                orientation: .landscape
+            )
             VStack {
                 Spacer()
-                    .frame(height: Constants.spacerHeight)
                 Button {
                     self.viewModelRight.moveOver(result: viewModelLeft.result)
                 } label: {
@@ -55,7 +56,11 @@ struct DoubleCalculatorView: View {
                         .cornerRadius(Constants.cornerRadius)
                 }
             }
-            CalculatorView(viewModel: viewModelRight)
+            CalculatorView(
+                viewModel: viewModelRight,
+                orientation: .landscape
+            )
         }
+        .padding(5)
     }
 }

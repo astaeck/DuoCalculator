@@ -5,7 +5,10 @@ struct SingleCalculatorView: View {
 
     var body: some View {
         VStack {
-            CalculatorView(viewModel: viewModel)
+            CalculatorView(
+                viewModel: viewModel,
+                orientation: .portrait
+            )
         }
     }
 }
