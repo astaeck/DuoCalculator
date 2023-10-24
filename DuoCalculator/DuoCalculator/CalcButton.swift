@@ -53,5 +53,5 @@ enum CalcButton {
 }
 
 enum Operation {
-    case add, subtract, multiply, divide, none
+    case add, subtract, multiply, divide, equal, none
 }

@@ -18,14 +18,18 @@ final class ResultViewModel: ObservableObject {
     func didTap(button: CalcButton) {
         switch button {
         case .percent:
-            result = formattedString((currentValue * runningNumber) / 100)
+            let multiplier = runningNumber == 0 ? 1 : runningNumber
+            result = formattedString((currentValue * multiplier) / 100)
             currentValue = formattedFloat(result)
         case .equal:
+            computations += result
             calculateResult()
             runningNumber = formattedFloat(result)
-            currentOperation = .none
+            currentOperation = .equal
         case .plus, .minus, .multiply, .division:
-            computations += result
+            if currentOperation != .equal {
+                computations += result
+            }
             if currentOperation != .none {
                 calculateResult()
             }
@@ -39,7 +43,7 @@ final class ResultViewModel: ObservableObject {
             } else if button == .division {
                 currentOperation = .divide
             }
-            computations += button.title
+            computations += " " + button.title + " "
         case .clear:
             clearAll()
         case .decimal:
@@ -68,7 +72,7 @@ private extension ResultViewModel {
             case .subtract: result = formattedString(runningNumber - currentValue)
             case .multiply: result = formattedString(runningNumber * currentValue)
             case .divide: result = formattedString(runningNumber / currentValue)
-            case .none:
+            case .none, .equal:
                 break
             }
         }
