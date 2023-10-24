@@ -22,7 +22,9 @@ final class ResultViewModel: ObservableObject {
             result = formattedString((currentValue * multiplier) / 100)
             currentValue = formattedFloat(result)
         case .equal:
-            computations += result
+            if currentOperation != .equal {
+                computations += result
+            }
             calculateResult()
             runningNumber = formattedFloat(result)
             currentOperation = .equal
