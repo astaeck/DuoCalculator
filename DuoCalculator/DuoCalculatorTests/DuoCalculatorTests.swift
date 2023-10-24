@@ -2,28 +2,130 @@ import XCTest
 @testable import DuoCalculator
 
 final class DuoCalculatorTests: XCTestCase {
+    private var sut: ResultViewModel!
 
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        sut = ResultViewModel()
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
+    func test_didTap_calculatesPercentageOfNumber() {
+        // GIVEN
+        sut.didTap(button: .five)
+        sut.didTap(button: .zero)
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+        // WHEN
+        sut.didTap(button: .percent)
+        
+        // THEN
+        XCTAssertEqual(sut.result, "0.5")
     }
+    
+    func test_didTap_calculatesAdditionOfNumbers() {
+        // GIVEN
+        sut.didTap(button: .nine)
+        sut.didTap(button: .decimal)
+        sut.didTap(button: .three)
 
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+        // WHEN
+        sut.didTap(button: .plus)
+        sut.didTap(button: .eight)
+        sut.didTap(button: .decimal)
+        sut.didTap(button: .four)
+        sut.didTap(button: .equal)
+
+        // THEN
+        XCTAssertEqual(sut.result, "17.7")
     }
+    
+    func test_didTap_calculatesSubtractionOfNumbers() {
+        // GIVEN
+        sut.didTap(button: .two)
+        sut.didTap(button: .one)
 
+        // WHEN
+        sut.didTap(button: .minus)
+        sut.didTap(button: .six)
+        sut.didTap(button: .equal)
+
+        // THEN
+        XCTAssertEqual(sut.result, "15")
+    }
+    
+    func test_didTap_calculatesMultiplicationOfNumbers() {
+        // GIVEN
+        sut.didTap(button: .seven)
+        sut.didTap(button: .decimal)
+        sut.didTap(button: .one)
+
+        // WHEN
+        sut.didTap(button: .multiply)
+        sut.didTap(button: .two)
+        sut.didTap(button: .equal)
+
+        // THEN
+        XCTAssertEqual(sut.result, "14.2")
+    }
+    
+    func test_didTap_calculatesDivisionOfNumbers() {
+        // GIVEN
+        sut.didTap(button: .three)
+        sut.didTap(button: .five)
+        sut.didTap(button: .zero)
+
+        // WHEN
+        sut.didTap(button: .division)
+        sut.didTap(button: .one)
+        sut.didTap(button: .zero)
+        sut.didTap(button: .equal)
+
+        // THEN
+        XCTAssertEqual(sut.result, "35")
+    }
+    
+    func test_didTap_negativeValueOfNumber() {
+        // GIVEN
+        sut.didTap(button: .three)
+
+        // WHEN
+        sut.didTap(button: .negative)
+
+        // THEN
+        XCTAssertEqual(sut.result, "-3")
+    }
+    
+    func test_didTap_clear() {
+        // GIVEN
+        sut.didTap(button: .five)
+
+        // WHEN
+        sut.didTap(button: .clear)
+
+        // THEN
+        XCTAssertEqual(sut.result, "0")
+    }
+    
+    func test_moveOver_showsNewResult() {
+        // GIVEN
+        sut.didTap(button: .two)
+
+        // WHEN
+        sut.moveOver(result: "34,567.93")
+
+        // THEN
+        XCTAssertEqual(sut.result, "34,567.93")
+    }
+    
+    func test_didTap_showAllComputations() {
+        // GIVEN
+        sut.didTap(button: .two)
+        XCTAssertEqual(sut.computations, "")
+
+        // WHEN
+        sut.didTap(button: .minus)
+        sut.didTap(button: .five)
+        sut.didTap(button: .equal)
+
+        // THEN
+        XCTAssertEqual(sut.computations, "2 - 5")
+    }
 }
